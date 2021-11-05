@@ -1,5 +1,4 @@
-const start = async () =>
-  await Promise.resolve("async is working");
+const start = async () => await Promise.resolve("async is working");
 
 start().then(console.log);
 
@@ -15,5 +14,7 @@ const unused = "check eslint";
 console.log(unused);
 
 import("lodash").then(lodash => {
-  console.log("Lodash", lodash, lodash.random(5))
+  if (lodash["random"]) console.log("Lodash", lodash, lodash.random(5));
+
+  console.log("Failed to load Lodash");
 });

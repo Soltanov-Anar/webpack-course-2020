@@ -1,13 +1,14 @@
 {
   "name": "webpack-course-2020",
-  "version": "1.0.0",
-  "description": "webpack course 2020",
-  "main": "index.js",
+  "version": "1.0.1",
+  "description": "Webpack course 2020",
+  "main": "index.jsx",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack --mode development",
     "watch": "cross-env NODE_ENV=development webpack --mode development --watch",
     "start": "cross-env NODE_ENV=development webpack serve --mode development --open",
     "build": "cross-env NODE_ENV=production webpack --mode production",
+    "serve": "cross-env NODE_ENV=production webpack serve --mode production --open",
     "stats": "webpack --profile --json=compilation-stats.json && webpack-bundle-analyzer compilation-stats.json"
   },
   "browserslist": "> 0.25%, not dead",
@@ -23,7 +24,6 @@
   "devDependencies": {
     "@babel/core": "^7.16.0",
     "@babel/eslint-parser": "^7.16.0",
-    "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.16.0",
     "@babel/preset-react": "^7.16.0",
     "@babel/preset-typescript": "^7.16.0",
@@ -55,6 +55,7 @@
     "xml-loader": "^1.2.1"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.12.1",
     "@types/node": "^16.11.6",
     "@types/react": "^17.0.33",
     "@types/react-dom": "^17.0.10",
@@ -62,7 +63,6 @@
     "lodash": "^4.17.21",
     "normalize.css": "^8.0.1",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "tsconfig-paths-webpack-plugin": "^3.5.1"
+    "react-dom": "^17.0.2"
   }
 }

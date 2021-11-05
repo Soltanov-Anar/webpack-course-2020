@@ -4,10 +4,9 @@ const {
   CleanWebpackPlugin
 } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const TerserWebpackPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TerserWebpackPlugin = require("terser-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-//const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const {
   BundleAnalyzerPlugin
 } = require("webpack-bundle-analyzer");
@@ -30,53 +29,43 @@ const filename = ext => (
   isDev ? `[name].${ext}` : `[name].[contenthash].${ext}`
 );
 
-console.group("process.env.NODE_ENV value : ")
+console.group("process.env.NODE_ENV value : ");
 console.log(process.env.NODE_ENV);
 console.log("Is Dev: ", isDev);
 console.groupEnd();
 
-const cssLoaders = (extra) => {
+const cssLoaders = extra => {
   const loaders = [
     MiniCssExtractPlugin.loader,
     "css-loader",
   ];
 
-  if (extra) {
-    loaders.push(extra);
-  };
+  if (extra) loaders.push(extra);
 
   return loaders;
 };
 
 const babelOptions = preset => {
   const options = {
-    presets: [
-      "@babel/preset-env",
-    ],
-    plugins: [
-      "@babel/plugin-proposal-class-properties"
-    ]
+    presets: ["@babel/preset-env"],
+    plugins: ["@babel/plugin-proposal-class-properties"]
   };
 
-  if (preset) {
-    options.presets.push(preset);
-  };
+  if (preset) options.presets.push(preset);
 
   return options;
 };
 
-const jsLoaders = () => {
+const jsLoaders = babelOption => {
   const loaders = [{
     loader: "babel-loader",
-    options: babelOptions(),
+    options: babelOptions(babelOption),
   }];
 
-  if (isDev) {
-    loaders.push("eslint-loader");
-  };
+  if (isDev) loaders.push("eslint-loader");
 
   return loaders;
-}
+};
 
 const plugins = () => {
   const base = [
@@ -102,9 +91,7 @@ const plugins = () => {
     }),
   ];
 
-  if (isProd) {
-    base.push(new BundleAnalyzerPlugin());
-  }
+  if (isProd) base.push(new BundleAnalyzerPlugin());
 
   return base;
 }
@@ -132,6 +119,11 @@ module.exports = {
     },
   },
   optimization: optimization,
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000
+  },
   devServer: {
     port: 1998,
   },
